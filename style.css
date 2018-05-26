@@ -1,0 +1,59 @@
+header{
+	background-image:url("img/headerslika.png");
+	height:400px;
+	
+}
+header h1{
+	font-size:100px;
+	
+}
+header p{
+	margin-top:-100px;
+}
+header {
+	line-height:200px;
+	text-align: center;
+}
+footer{
+	background-color:tan;
+	
+}
+
+#prvaVijest {
+	width:430px;
+	height:400px;
+	background-image:url("img/nevrijeme.jpg");
+	color:white;
+}
+.vijest{
+	border:2px solid black;
+	 
+}
+.vijest img{
+	width:500px;
+	height:250px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

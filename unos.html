@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+	 <meta charset="UTF-8">
+	  <meta name="description" content="Web portal">
+	 <meta name="keywords" content="HTML,CSS,XML,JavaScript, PHP">
+	 <meta name="author" content="Goran Lolić">
+	 <link rel="stylesheet" href="style.css">
+	 <meta name="viewport" content="width=device-width, initial-scale=1">
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	</head>
+<body>
+
+	<header>
+		<h1> Portalko </h1>
+		<p> Vaš portal za vijesti </p>
+	</header>
+
+	<nav class="navbar navbar-inverse">
+	<div class="container">
+	  <div class="container-fluid">
+		<ul class="nav navbar-nav">
+		  <li><a href="index.php">Početna</a></li>
+		  <li > <a href="unos.html">Unos </a></li>
+		   <li> <a href="login.html"> Login </a> </li>
+		   <li> <a href="registracija.html"> Registracija </a> </li>
+		</ul>
+	  </div>
+	  </div>
+	</nav>
+	<div class="container">
+		<div id="UnosVijesti">	
+			<form name="unosVijesti" action="skripta.php" method="POST" enctype="multipart/form-data">
+				<input type="hidden" name="MAX_FILE_SIZE" value="1048576" />
+				
+				<label for="naslovVijesti">Naslov vijesti:</label>
+				
+				<input id="naslovVijesti" type="text" name="naslov"/><br/>
+				<span id="porukaNaslovVijesti"></span><br/>
+				<textarea rows="8" cols="36" name="krSadrzaj" id ="krSadrzaj"></textarea><br/>
+				<span id="porukaKratkiSadrzaj"></span> <br />
+				<textarea rows="8" cols="36" name="vijestSadrzaj" value="" id ="vijestSadrzaj"></textarea>	<br/>
+				<span id="porukaVijestSadrzaj"></span> <br />
+				
+				<select name ="kategorija" id ="kategorija">
+					<option value="Odaberi"> Odaberi </option>
+					<option value="Putovanja"> Putovanja </option>
+					<option value="Sport"> Sport </option>
+					<option value="Multimedija"> Multimedija </option>
+					<option value="Hrvatska"> Hrvatska </option>
+				</select>
+				<span id="porukaKategorija"></span> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+				<input type="checkbox" name="sakrijVijest" id="sakrijVijest"/>
+				<label for="sakrijVijest"> Sakrij Vijest? </label>
+				<input type="file"  name="slika" />
+				<input id="slanje" type="submit" value="Pošalji" />
+			</form>
+		</div>
+	</div>
+	<footer>
+	<div class="container">
+		<p> Napravio Goran Lolić, 2018. god.<br/> </p>	</div>
+	</footer>
+	<script type="text/javascript">
+	//provjera
+	document.getElementById("slanje").onclick = function (event){
+		var slanjeForme = true;
+	
+		
+		var poljeNaslov = document.getElementById("naslovVijesti");
+		var naslovVijesti = document.getElementById("naslovVijesti").value;
+		if(naslovVijesti.length < 5 || naslovVijesti.length > 30) {
+			slanjeForme = false;
+			poljeNaslov.style.border = "1px dashed #ff0000";
+			document.getElementById("porukaNaslovVijesti").innerHTML = "Naslov vijesti mora imati između 5 i 30 znakova!";
+		}
+		else{
+			poljeNaslov.style.border = "1px solid rgba(255,255,255,0.7)";
+			document.getElementById("porukaNaslovVijesti").innerHTML = " ";
+		}
+		
+		var poljeKratkiSadrzaj = document.getElementById("krSadrzaj");
+		var kratkiSadrzaj = document.getElementById("krSadrzaj").value;
+		if(kratkiSadrzaj.length<10||kratkiSadrzaj.length > 100){
+			slanjeForme = false;
+			poljeKratkiSadrzaj.style.border = "1px dashed #ff0000";
+			document.getElementById("porukaKratkiSadrzaj").innerHTML = "Kratki sadržaj mora imati od 10 do 100 znakova!";
+		}
+		else{
+			poljeKratkiSadrzaj.style.border = "1px solid rgba(255,255,255,0.7)";
+			document.getElementById("porukaKratkiSadrzaj").innerHTML="";
+		}
+		
+		var poljeTekst = document.getElementById("vijestSadrzaj");
+		var tekst = document.getElementById("vijestSadrzaj").value;
+		if(tekst.length<10 || tekst.length > 1000){
+			slanjeForme = false;
+			poljeTekst.style.border = "1px dashed #ff0000";
+			document.getElementById("porukaVijestSadrzaj").innerHTML="Vijest mora imati od 10 do 1000 znakova!";
+		}
+		else {
+			poljeTekst.style.border = "1px solid rgba(255,255,255,0.7)";
+			document.getElementById("porukaVijestSadrzaj").innerHTML="";
+		}
+		
+		var poljeKategorija = document.getElementById("kategorija");
+		if(document.getElementById("kategorija").selectedIndex ==0){
+			slanjeForme=false;
+			poljeKategorija.style.border = "1px dashed #ff0000";
+			document.getElementById("porukaKategorija").innerHTML = "Kategorija mora biti odabrana!";
+		}
+		else{
+			poljeKategorija.style.border = "1px solid rgba(255,255,255,0.7)";
+			document.getElementById("porukaKategorija").innerHTML="";
+		}
+	
+	
+	
+		if (slanjeForme != true) {
+				event.preventDefault();
+			}
+	
+	};
+	document.getElementById("sakrijVijest").onclick=function(){
+		if(document.getElementById("sakrijVijest").checked==true){
+			var potvrda = confirm ("Jeste li sigurni da želite sakriti vijest?");
+			if(potvrda == false){
+				document.getElementById("sakrijVijest").checked=false;
+			}else{
+				document.getElementById("sakrijVijest").checked=true;
+			}
+		
+		}
+	
+	
+	};
+	
+	
+	</script>
+</body>
+</html>
+
+
